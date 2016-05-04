@@ -55,14 +55,13 @@ function getMin (array) {
 }
 
 function getAvg(array){
-	if (array.length >0 ) {
-		var summ = 0;
-		for(var i=0;i<array.length;i++){
-			summ= summ + array[i];
-		}
-		return summ/array.length;
+
+	var result = array.reduce(function(sum,current){
+		return sum + current;
+	},0);
+	return result/array.length;
 	}
-}
+
 
 function sortBuble(array){
 	var outer;
