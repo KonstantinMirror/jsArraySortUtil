@@ -1,10 +1,17 @@
 
 var myString = 'hello world';
+console.log(myString);
 console.log(reverse(myString));
 console.log(isEndWith(myString,'rld'));
 console.log(isStartWith(myString,'hell'));
 
+var camel = 'CamelClass';
+var pascal = 'pascal_case_to';
+console.log('Is pascal ' + camel + '->' + isPascalCase(camel));
+console.log('Is pascal ' + pascal + '->' + isPascalCase(pascal));
 
+console.log('Is camel ' + camel + '->' +  isCamelCase(camel));
+console.log('Is camel ' + pascal + '->' +  isCamelCase(pascal));
 
 function reverse (arg) {
 	var outMessage='';
@@ -27,3 +34,15 @@ function isStartWith(currentString, start){
 		return compareString==start;
 	}else return false;
 }
+
+
+function isPascalCase(arg){
+	return arg.split("_").length>1;
+}
+
+
+function isCamelCase(arg){
+	var patt = /_/i;
+	return !patt.test(arg);
+}
+

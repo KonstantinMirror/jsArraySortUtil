@@ -95,12 +95,12 @@ function sortInsertion(array){
 	var inner;
 	for(outer=1;outer<array.length;outer++){
 		var temp = array[outer];
-		inner=outer;
-		while(inner>0&&array[inner-1]>=temp){
+		inner = outer;
+		while(inner > 0 && array[inner-1] >= temp){
 			array[inner]=array[inner-1];
 			inner--
 		}
-		array[inner]=temp;
+		array[inner] = temp;
 	}
 }
 
