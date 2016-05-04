@@ -1,13 +1,21 @@
+
+
 var meshArray =[];
-for (var i = 0; i < 10; i++) {
-	meshArray[i]=Math.round(Math.random()*1000);	
-}
-console.log(meshArray);
+var meshArraySome =[];
+
+initMeshArray(meshArray,10);
+initMeshArray(meshArraySome,10);
+
+
+console.log(meshArray,10);
 console.log('max element is ' + getMax(meshArray));
 console.log('min element is ' + getMin(meshArray));
 console.log('avg elements is ' + getAvg(meshArray));
-sortInsertion(meshArray);
+sortShell(meshArray);
+sortBuble(meshArraySome);
 console.log(meshArray);
+
+console.log(merge(meshArray,meshArraySome));
 
 var obj1 = { a: 2, c: 3, d: 3};
 var obj2 = { a: 1 };
@@ -18,17 +26,13 @@ console.log(obJectSort(arOfObj));
 
 
 
-function sortBuble(array){
-	var outer;
-	var inner;
-	for (outer = array.length-1; outer > 1; outer--) {
-		for (inner=0; inner < outer; inner++) {
-			if(array[inner]>array[inner+1]){
-				swap(array,inner,inner+1);
-			}
-		}
+function initMeshArray (array, count) {
+	for (var i = 0; i < count; i++) {
+		array[i]=Math.round(Math.random()*1000);	
 	}
+	return array;
 }
+
 
 function getMax (array) {
 	var max=array[0];
@@ -60,6 +64,18 @@ function getAvg(array){
 	}
 }
 
+function sortBuble(array){
+	var outer;
+	var inner;
+	for (outer = array.length-1; outer > 1; outer--) {
+		for (inner=0; inner < outer; inner++) {
+			if(array[inner]>array[inner+1]){
+				swap(array,inner,inner+1);
+			}
+		}
+	}
+}
+
 function sortSelection(array){
 	var outer;
 	var inner;
@@ -87,6 +103,54 @@ function sortInsertion(array){
 		array[inner]=temp;
 	}
 }
+
+
+function merge (arrayToMerge_1, arrayToMerge_2) {
+	var outArray =[];
+	var dex_1=0;
+	var dex_2=0;
+	var dex_out=0;
+	while(dex_1 < arrayToMerge_1.length && dex_2 < arrayToMerge_2.length){
+		if(arrayToMerge_1[dex_1]<arrayToMerge_2[dex_2]){
+			outArray[dex_out++]=arrayToMerge_1[dex_1++];
+		}else{
+			outArray[dex_out++]=arrayToMerge_2[dex_2++];
+		}
+	}
+	while(dex_1<arrayToMerge_1.length){
+		outArray[dex_out++]=arrayToMerge_1[dex_1++];
+	}
+	while(dex_2<arrayToMerge_2.length){
+		outArray[dex_out++]= arrayToMerge_1[dex_2++];
+	}
+	return outArray;
+}
+
+
+
+function sortShell(array){
+	var outer;
+	var inner;
+	var temp;
+	var h=1;
+	while(h<= array/3){
+		h = h*3+1;
+	}
+	while(h>0){
+		for(outer = h; outer<array.length; outer++){
+			temp=array[outer];
+			inner=outer;
+			while(inner>h-1&&array[inner-1]>=temp){
+				array[inner]=array[inner-h];
+				inner-=h;
+			}
+			array[inner]=temp;
+		}
+		h=(h-1)/3;
+	}
+}
+
+
 
 
 function swap(array,index_1,index_2){
