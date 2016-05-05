@@ -1,5 +1,5 @@
 
-
+'use strict';
 var meshArray =[];
 var meshArraySome =[];
 
@@ -7,22 +7,46 @@ initMeshArray(meshArray,10);
 initMeshArray(meshArraySome,10);
 
 
-console.log(meshArray,10);
-console.log('max element is ' + getMax(meshArray));
-console.log('min element is ' + getMin(meshArray));
-console.log('avg elements is ' + getAvg(meshArray));
-sortShell(meshArray);
-sortBuble(meshArraySome);
 console.log(meshArray);
+console.log('max element is-> ' + getMax(meshArray));
+console.log('min element is ->' + getMin(meshArray));
+console.log('avg elements is ->' + getAvg(meshArray));
 
-console.log(merge(meshArray,meshArraySome));
+console.log('Before sortShell->' + meshArray);
+sortShell(meshArray);
+console.log('After sortShell->' + meshArray);
+
+console.log('Before sortBuble->' + meshArraySome);
+sortBuble(meshArraySome);
+console.log('After sortBuble->' + meshArraySome);
+
+initMeshArray(meshArray,10);
+console.log('Before sortInsertion->' + meshArray);
+sortInsertion(meshArray);
+console.log('After sortInsertion->' + meshArray);
+
+initMeshArray(meshArray,10);
+console.log('Before sortSelection->' + meshArray);
+sortSelection(meshArray);
+console.log('After sortSelection->' + meshArray);
+
+console.log('After merge->' + merge(meshArray,meshArraySome));
+
+initMeshArray(meshArray,10);
+console.log('Before quickSort->' + meshArray);
+quickSort(meshArray);
+console.log('After quickSort->' + meshArray);
+
+initMeshArray(meshArray,10);
+console.log('Before sortConting->' + meshArray);
+console.log('After sortConting->' + sortConting(meshArray));
 
 var obj1 = { a: 2, c: 3, d: 3};
 var obj2 = { a: 1 };
 var obj3 = { a: 2, c: 3};
 var arOfObj = [obj1, obj2, obj3];
 
-console.log(obJectSort(arOfObj));
+console.log(obJectSort(arOfObj),'asc');
 
 
 
@@ -60,7 +84,7 @@ function getAvg(array){
 		return sum + current;
 	},0);
 	return result/array.length;
-	}
+}
 
 
 function sortBuble(array){
@@ -150,6 +174,60 @@ function sortShell(array){
 }
 
 
+function quickSort (array) {
+	recQuickSort(0, array.length-1);
+
+	function recQuickSort (left, right) {
+		if(right-left <= 0){
+			return;
+		}else{
+			var pivot = array[right];
+			var partition = partitionIt(left, right, pivot);
+			recQuickSort(left,partition - 1);
+			recQuickSort(partition + 1, right);
+		}
+	}
+
+	function partitionIt (left,right,pivot) {
+		var leftPtr = left - 1;
+		var rightPtr = right;
+		while(true){
+			while(array[++leftPtr] < pivot);
+			while(rightPtr > 0 && array[--rightPtr] > pivot );
+			if (leftPtr>=rightPtr) {
+				break;
+			}else{
+				swap(array, leftPtr, rightPtr)
+			}
+		}
+		swap(array,leftPtr,right);
+		return leftPtr;
+	}
+}
+
+
+function sortConting(array){   
+	var n = array.length;
+	var count = [];
+	var out = [];
+	for (var i = 0; i < n; i++){
+		count[i] = 0;
+	} 
+	for (var i = 0; i < n-1; i++){
+		for (var j = i+1; j < n; j++){
+			if (array[i] < array[j]){
+				count[j]++;
+			}else{
+				count[i]++;
+			} 
+		}
+	}
+	for (var i = 0; i < n; i++){
+		out[count[i]] = array[i];
+	} 
+	return out;
+}
+
 
 
 function swap(array,index_1,index_2){
@@ -171,14 +249,14 @@ function obJectSort(arObject, typeSort){
 
 
 	function compareAscending(arg1,arg2){
-		countArg1 = getCountProp(arg1);
-		countArg2 = getCountProp(arg2);
+		var countArg1 = getCountProp(arg1);
+		var countArg2 = getCountProp(arg2);
 		return countArg1 - countArg2;
 	}
 
 	function compareDescending(arg1,arg2){
-		countArg1 = getCountProp(arg1);
-		countArg2 = getCountProp(arg2);
+		var countArg1 = getCountProp(arg1);
+		var countArg2 = getCountProp(arg2);
 		return countArg2 - countArg1;
 	}
 

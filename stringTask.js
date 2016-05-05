@@ -1,3 +1,5 @@
+'use strict';
+
 
 var myString = 'hello world';
 console.log(myString);
@@ -37,7 +39,7 @@ function isStartWith(currentString, start){
 
 
 function isPascalCase(arg){
-	return arg.split("_").length>1;
+	return arg.split("_").length > 1;
 }
 
 
