@@ -42,7 +42,8 @@ console.log('Before sortConting->' + meshArray);
 console.log('After sortConting->' + sortConting(meshArray));
 
 
-paintTriangle(5);
+console.log(paintTriangle(9,'double'))
+console.log(paintTriangle(9,'one'))
 
 var obj1 = { a: 2, c: 3, d: 3};
 var obj2 = { a: 1 };
@@ -272,12 +273,12 @@ function obJectSort(arObject, typeSort){
 	}
 }
 
-function paintTriangle (arg) {
+function paintTriangle (arg, type) {
 	if (!(arg % 2)) {
 		console.log('wrong parameter ' + arg);
 		return;
 	}
-	var depth = ~~arg/2;
+	var depth = ~~(arg/2) + arg % 2;
 	var triangleArray=[];
 	for(var  i = 0 ; i < depth ;i++){
 		var line = [];
@@ -290,33 +291,36 @@ function paintTriangle (arg) {
 		}
 		triangleArray[i] = line;
 	} 
-	getOneTriangle();
-	//getDoubleTriangle();
-	
+	if(type=='double'){
+		return getDoubleTriangle();
+	}else if(type =='one'){
+		return getOneTriangle();
+	}
 
 	function getDoubleTriangle(){
 		var startHeight = triangleArray.length-2;
 		for(;startHeight>=0;startHeight--){
 			triangleArray.push(triangleArray[startHeight])
 		}
-		console.log(triangleArray);
+		return triangleArray;
 	}
 
 	function getOneTriangle () {
 		var oneTriangel = [];
-		for(var iterator = 0; iterator <= arg; iterator++){
+		for(var iterator = 0; iterator < arg; iterator++){
 			var arrInner = [];
-			for(var innerIter = 0; innerIter <= arg; innerIter++){
+			for(var innerIter = 0; innerIter < arg; innerIter++){
 				arrInner[innerIter] = 0;
 			}
 			oneTriangel[iterator] = arrInner;
 		}
-		for(var i = 0; i < arg ; i++){
-			for(var j = 0; j < depth; j++){
-				oneTriangel[j][i] = triangleArray[i][j];
+		for(var i = 0; i < triangleArray.length; i++){
+			var sell = triangleArray[i];
+			for(var k = 0; k < sell.length; k++){
+				oneTriangel[k][i] = sell[k];
 			}
 		}
-		console.log(oneTriangel);
+		return oneTriangel;
 	}
 }
 
